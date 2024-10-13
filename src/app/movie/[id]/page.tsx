@@ -1,8 +1,17 @@
 import mockData from "@/dummy.json";
 import style from "./page.module.css";
 
-export default function MoviePage({ params }: { params: { id: string } }) {
-  const movieData = mockData[0];
+export default async function MoviePage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/movie/${params.id}`,
+    { cache: "force-cache" }
+  );
+  if (!response.ok) return <div>오류가 생겼습니다....</div>;
+  const movieData = await response.json();
 
   return (
     <div className={style.moviepage_container}>
