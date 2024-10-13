@@ -1,5 +1,16 @@
-import mockData from "@/dummy.json";
+import { MovieData } from "@/types";
 import style from "./page.module.css";
+
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const response = await fetch(`http://localhost:12345/movie`);
+  if (!response.ok) throw new Error("에러발생");
+  const movies: MovieData[] = await response.json();
+  return movies.map((movie) => ({
+    id: movie.id.toString(),
+  }));
+}
 
 export default async function MoviePage({
   params,
