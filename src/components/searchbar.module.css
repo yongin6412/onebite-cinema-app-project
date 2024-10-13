@@ -1,0 +1,23 @@
+.serachbar_container {
+  display: flex;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.serachbar_container > input {
+  flex: 1;
+  padding: 15px;
+  border: 1px solid rgb(100, 100, 100);
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+}
+
+.serachbar_container > button {
+  width: 80px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background-color: rgb(67, 67, 67);
+  cursor: pointer;
+}
