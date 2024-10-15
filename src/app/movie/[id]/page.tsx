@@ -1,5 +1,7 @@
 import { MovieData } from "@/types";
 import style from "./page.module.css";
+import ReviewEditor from "@/components/review/review-editor";
+import ReviewList from "@/components/review/review-list";
 
 export const dynamicParams = false;
 
@@ -12,13 +14,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function MoviePage({
-  params,
-}: {
-  params: { id: string };
-}) {
+async function MovieDetail({ movieId }: { movieId: string }) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/movie/${params.id}`,
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/movie/${movieId}`,
     { cache: "force-cache" }
   );
   if (!response.ok) return <div>오류가 생겼습니다....</div>;
@@ -46,6 +44,16 @@ export default async function MoviePage({
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+export default function MoviePage({ params }: { params: { id: string } }) {
+  return (
+    <div className={style.container}>
+      <MovieDetail movieId={params.id} />
+      <ReviewEditor movieId={params.id} />
+      <ReviewList movieId={params.id} />
     </div>
   );
 }
